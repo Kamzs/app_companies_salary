@@ -2,6 +2,7 @@ package pl.firmy.ocen_firme.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,9 +27,10 @@ public class MainController
     }
 
     @PostMapping("/")
-    public String createGrade(@ModelAttribute Company company)
+    public String createGrade(@ModelAttribute Company company, Model model)
     {
         companyRepository.save(company);
+        model.addAttribute("numberOfAll",companyRepository.count());
         return "thank_you_note";
     }
 
